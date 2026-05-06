@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.demo.mapper.StudentMapper">
+
+    <select id="getAllInfoByPage" resultType="com.library.demo.vo.StudentVO">
+        select s.student_name,c.course_name,sc.score from student s
+        join demo.sc  on s.student_id = sc.student_id
+        join demo.course c on c.course_id = sc.course_id
+    </select>
+    <select id="getScoreByName" resultType="com.library.demo.vo.StudentVO">
+        select s.student_name,c.course_name,sc.score from student s
+        join demo.sc  on s.student_id = sc.student_id
+        join demo.course c on c.course_id = sc.course_id
+        where s.student_name = #{name};
+    </select>
+    <select id="getNameByScore" resultType="com.library.demo.vo.StudentVO">
+        select s.student_name,c.course_name,sc.score from student s
+        join demo.sc  on s.student_id = sc.student_id
+        join demo.course c on c.course_id = sc.course_id
+        where c.course_name='高等数学' and sc.score>#{score};
+    </select>
+</mapper>
