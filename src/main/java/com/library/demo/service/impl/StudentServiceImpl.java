@@ -22,7 +22,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     StudentMapper studentMapper;
     @Override
     public PageResult getAllInfo(StudentDTO studentDTO) {
-        Page<StudentVO> page = Page.of(studentDTO.getPageNo(), studentDTO.getPageSize());
+        // 设置默认分页参数
+        int pageNo = studentDTO.getPageNo() <= 0 ? 1 : studentDTO.getPageNo();
+        int pageSize = studentDTO.getPageSize() <= 0 ? 10 : studentDTO.getPageSize();
+        
+        Page<StudentVO> page = Page.of(pageNo, pageSize);
         Page<StudentVO> p = studentMapper.getAllInfoByPage(page);
         return new PageResult(p.getTotal(),p.getRecords());
     }
